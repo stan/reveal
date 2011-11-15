@@ -7,19 +7,21 @@
 */
 
 (function ($) {
+    var defaults = {
+        animation: 'fadeAndPop',                // fade, fadeAndPop, none
+        animationSpeed: 300,                    // how fast animtions are
+        closeOnBackgroundClick: true,           // if you click background will modal close?
+        closeOnKey: 27,                         // close on a specific key (27 is the keycode for the escape key)
+        dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
+    };
+
     $('a[data-reveal-id]').live('click', function (e) {
         e.preventDefault();
         $('#' + $(this).attr('data-reveal-id')).reveal($(this).data());
     });
 
     $.fn.reveal = function (options) {
-        var defaults = {
-            animation: 'fadeAndPop',                // fade, fadeAndPop, none
-            animationSpeed: 300,                    // how fast animtions are
-            closeOnBackgroundClick: true,           // if you click background will modal close?
-            closeOnKey: 27,                         // close on a specific key (27 is the keycode for the escape key)
-            dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
-        };
+
         var options = $.extend({}, defaults, options);
 
         return this.each(function () {
@@ -39,6 +41,7 @@
                     modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
                     if (options.animation == 'fadeAndPop') {
+                        modal.css({ 'top': $(document).scrollTop() - topMeasure });
                         modal.delay(options.animationSpeed / 2).animate({
                             'top': $(document).scrollTop() + topMeasure + 'px',
                             'opacity': 1
