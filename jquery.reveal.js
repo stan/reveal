@@ -64,10 +64,12 @@
                 }
 
                 // close if the specified key is pressed (default escape)
-                $('body').keyup(function (e) {
-                    if (e.which === options.closeOnKey)
-                        modal.trigger('reveal:close');
-                });
+                if (options.closeOnBackgroundClick) {
+                    $('body').keyup(function (e) {
+                        if (e.which === options.closeOnKey)
+                            modal.trigger('reveal:close');
+                    });
+                }
 
                 // close if the x is clicked
                 modal.find('.' + options.dismissModalClass).live('click.modalEvent', function () {
