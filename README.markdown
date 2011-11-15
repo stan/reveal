@@ -1,7 +1,7 @@
 <h1>Fork specific features</h1>
 <ul>
   <li>Can now choose a specific key to close the modal - defaults to escape</li>
-  <li>Cleaned javascript</li>
+  <li>Cleaned javascript and restructured to make it clearer</li>
   <li>Cleaned css and added 'x' close button hover effect</li>  
 </ul>
 

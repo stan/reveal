@@ -23,11 +23,11 @@
         var options = $.extend({}, defaults, options);
 
         return this.each(function () {
-            var modal   = $(this),
-            topMeasure  = parseInt(modal.css('top')),
-            topOffset   = modal.height() + topMeasure,
-            locked      = false,
-            background  = $('.reveal-modal-bg');
+            var modal = $(this),
+            topMeasure = parseInt(modal.css('top')),
+            topOffset = modal.height() + topMeasure,
+            locked = false,
+            background = $('.reveal-modal-bg');
 
             // open
             modal.bind('reveal:open', function () {
@@ -37,25 +37,23 @@
                 if (!locked) {
                     locked = true
 
+                    modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
+
                     if (options.animation == 'fadeAndPop') {
-                        modal.css({ 'top': $(document).scrollTop() - topOffset, 'opacity': 0, 'visibility': 'visible' });
-                        background.fadeIn(options.animationSpeed / 2);
                         modal.delay(options.animationSpeed / 2).animate({
                             'top': $(document).scrollTop() + topMeasure + 'px',
                             'opacity': 1
                         }, options.animationSpeed);
                     } else if (options.animation == 'fade') {
-                        modal.css({ 'opacity': 0, 'visibility': 'visible', 'top': $(document).scrollTop() + topMeasure });
-                        background.fadeIn(options.animationSpeed / 2);
                         modal.delay(options.animationSpeed / 2).animate({
                             'opacity': 1
                         }, options.animationSpeed);
                     } else if (options.animation == 'none') {
-                        modal.css({ 'visibility': 'visible', 'top': $(document).scrollTop() + topMeasure });
-                        background.css({ 'display': 'block' });
+                        modal.css({ 'opacity': 1 });
+                        options.animationSpeed = 0;
                     }
 
-                    locked = false;
+                    background.fadeIn(options.animationSpeed / 2);
                 }
 
                 // close if the background is clicked
@@ -76,6 +74,7 @@
                     modal.trigger('reveal:close')
                 })
 
+                locked = false;
                 modal.unbind('reveal:open');
             });
 
@@ -85,7 +84,6 @@
                     locked = true
 
                     if (options.animation == 'fadeAndPop') {
-                        background.delay(options.animationSpeed).fadeOut(options.animationSpeed);
                         modal.animate({
                             'top': $(document).scrollTop() - topOffset + 'px',
                             'opacity': 0
@@ -93,7 +91,6 @@
                             modal.css({ 'top': topMeasure, 'opacity': 1, 'visibility': 'hidden' });
                         });
                     } else if (options.animation == 'fade') {
-                        background.delay(options.animationSpeed).fadeOut(options.animationSpeed);
                         modal.animate({
                             'opacity': 0
                         }, options.animationSpeed, function () {
@@ -101,11 +98,13 @@
                         });
                     } else if (options.animation == 'none') {
                         modal.css({ 'visibility': 'hidden', 'top': topMeasure });
-                        background.css({ 'display': 'none' });
+                        options.animationSpeed = 0;
                     }
 
-                    locked = false;
+                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed);
                 }
+
+                locked = false;
                 modal.unbind('reveal:close');
             });
 
