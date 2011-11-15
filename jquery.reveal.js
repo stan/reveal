@@ -20,16 +20,14 @@
         $('#' + $(this).attr('data-reveal-id')).reveal($(this).data());
     });
 
-    $.fn.reveal = function (options) {
-
-        var options = $.extend({}, defaults, options);
-
+    $.fn.reveal = function (args) {
         return this.each(function () {
-            var modal = $(this),
-            topMeasure = parseInt(modal.css('top')),
-            topOffset = modal.height() + topMeasure,
-            locked = false,
-            background = $('.reveal-modal-bg');
+            var modal   = $(this),
+            topMeasure  = parseInt(modal.css('top')),
+            topOffset   = modal.height() + topMeasure,
+            locked      = false,
+            background  = $('.reveal-modal-bg'),
+            options     = $.extend({}, defaults, args);
 
             // open
             modal.bind('reveal:open', function () {
