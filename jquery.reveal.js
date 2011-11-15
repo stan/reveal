@@ -35,8 +35,7 @@
                     background = $('<div class="reveal-modal-bg" />').insertAfter(modal).fadeTo('fast', 0.8);
 
                 if (!locked) {
-                    locked = true
-
+                    locked = true;
                     modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
                     if (options.animation == 'fadeAndPop') {
