@@ -74,7 +74,7 @@
                 // close if the x is clicked
                 modal.find('.' + options.dismissModalClass).live('click.modalEvent', function () {
                     modal.trigger('reveal:close')
-                })
+                });
 
                 locked = false;
                 modal.unbind('reveal:open');
