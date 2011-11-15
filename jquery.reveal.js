@@ -18,7 +18,7 @@
             animation: 'fadeAndPop',                // fade, fadeAndPop, none
             animationSpeed: 300,                    // how fast animtions are
             closeOnBackgroundClick: true,           // if you click background will modal close?
-            closeOnKey: 27,                          // close on a specific key (27 is the keycode for the escape key)
+            closeOnKey: 27,                         // close on a specific key (27 is the keycode for the escape key)
             dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
         };
         var options = $.extend({}, defaults, options);
@@ -100,7 +100,6 @@
                     modal.trigger('reveal:close');
                 });
             }
-
 
             // close if the specified key is pressed (default escape)
             $('body').keyup(function (e) {
