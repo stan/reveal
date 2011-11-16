@@ -43,17 +43,17 @@
                     modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
                     var animations = { 'opacity': 1 };
-
+                    var css = {};
                     if (options.animation == 'fadeAndPop') {
-                        modal.css('top', $(document).scrollTop() - topMeasure);
+                        css.top = $(document).scrollTop() - topMeasure;
                         animations.top = $(document).scrollTop() + topMeasure + 'px';
                     } else if (options.animation == 'fade') {
                         // nothing
                     } else if (options.animation == 'none') {
-                        modal.css('opacity', 1);
+                        css.opacity = 1;
                         options.animationSpeed = 0;
                     }
-
+                    modal.css(css);
                     background.fadeIn(options.animationSpeed / 2);
                     modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
                         eval(options.revealedCallback);
@@ -93,9 +93,9 @@
                     var css = { 'top': topMeasure, 'visibility': 'hidden' };
 
                     if (options.animation == 'fadeAndPop') {
-                       animations.top = $(document).scrollTop() - topOffset + 'px';
+                        animations.top = $(document).scrollTop() - topOffset + 'px';
                     } else if (options.animation == 'fade') {
-                      // nothing
+                        // nothing
                     } else if (options.animation == 'none') {
                         options.animationSpeed = 0;
                     }
