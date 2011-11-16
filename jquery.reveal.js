@@ -52,7 +52,7 @@
                 // open
                 modal.bind('reveal:open', function () {
                     if (background.length === 0) {
-                        background = $('<div class="reveal-modal-bg" />').insertAfter(modal).fadeTo('fast', 0.8);
+                        background = $('<div class="reveal-modal-bg" />').insertAfter(modal);
                     }
 
                     if (!locked) {
@@ -71,7 +71,7 @@
                             options.animationSpeed = 0;
                         }
 
-                        background.fadeIn(options.animationSpeed / 2);
+                        background.fadeTo(options.animationSpeed, 0.8).fadeIn(options.animationSpeed / 2);
                         modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
                             if (typeof window[options.revealedCallback] === 'function') {
                                 window[options.revealedCallback]();
