@@ -25,13 +25,13 @@
 
     $.fn.reveal = function (args) {
         return this.each(function () {
-            var modal = $(this),
-            topMeasure = parseInt(modal.css('top')),
-            topOffset = modal.height() + topMeasure,
-            locked = false,
-            background = $('.reveal-modal-bg'),
-            timeout = null,
-            options = $.extend({}, defaults, args);
+            var modal   = $(this),
+            topMeasure  = parseInt(modal.css('top')),
+            topOffset   = modal.height() + topMeasure,
+            locked      = false,
+            background  = $('.reveal-modal-bg'),
+            timeout     = null,
+            options     = $.extend({}, defaults, args);
 
             // open
             modal.bind('reveal:open', function () {
