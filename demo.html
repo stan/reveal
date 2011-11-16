@@ -24,6 +24,10 @@
 			.big-link { display:block; margin: 30px 0; text-align: center; font-size: 50px; color: #06f; }
 			.reveal-modal { text-align: left; }
 		</style>
+
+        <script type="text/javascript">
+            function callback() { alert('callback function fired!'); }
+        </script>
 	</head>
 	<body>
         <h1>Animations</h1>
@@ -46,6 +50,10 @@
 		
 		<a href="#" class="big-link" data-reveal-id="myModal" data-close-on-timeout="3000">
 			Close on timeout (after 3 seconds)
+		</a>
+
+        <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="callback()">
+			Callback (close the modal to fire)
 		</a>
 
 		<div id="myModal" class="reveal-modal">

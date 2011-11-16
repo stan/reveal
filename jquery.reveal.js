@@ -8,12 +8,13 @@
 
 (function ($) {
     var defaults = {
-        animation: 'fadeAndPop',                // fade, fadeAndPop, none
-        animationSpeed: 300,                    // how fast animtions are
-        closeOnBackgroundClick: true,           // if you click background will modal close?
-        closeOnKey: 27,                         // close on a specific key (27 is the keycode for the escape key)
-        closeOnTimeout: false,                  // close the modal after provided given milliseconds
-        dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
+        animation: 'fadeAndPop',                    // fade, fadeAndPop, none
+        animationSpeed: 300,                        // how fast animtions are
+        closeOnBackgroundClick: true,               // if you click background will modal close?
+        closeOnKey: 27,                             // close on a specific key (27 is the keycode for the escape key)
+        closeOnTimeout: false,                      // close the modal after provided given milliseconds
+        dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
+        dismissCallback: null                       // optional callback to run after the modal has closed
     };
 
     $('a[data-reveal-id]').live('click', function (e) {
@@ -105,8 +106,11 @@
                         options.animationSpeed = 0;
                     }
 
-                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed);
+                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
+                        eval(options.dismissCallback);
+                    });
                 }
+
                 clearTimeout(timeout);
                 locked = false;
                 modal.unbind('reveal:close');
