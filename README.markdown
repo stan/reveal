@@ -1,5 +1,5 @@
 <h1>Fork specific features</h1>
-<p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Might branch jQuery 1.7 and use on/off.</p>
+<p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings.</p>
 <ul>
   <li>Can load content via ajax in to a modal [contentUrl/data-content-url, contentId/data-content-id]
     <ul>
@@ -17,7 +17,7 @@
   <li>Cleaned javascript and restructured to make it clearer</li>
   <li>Cleaned css and added 'x' close button hover effect</li>  
 </ul>
-
+<p>I won't be updating jQuery to 1.7 using on/off. Using live provides backward compatibility down to jQuery 1.4, and 1.7 feels like an in-the-middle version, containing past and future features. Perhaps when 1.8 or later is released I will branch.</p>
 <h1>Reveal: A jQuery Plugin For Modals</h1>
 <p>Reveal is a jQuery plugin for dead simple modals that comes with some sexy base CSS and can be implemented programatically or with the new HTML5 custom data attributes (data-attribute).</p><br />
 <h3>Download & Documentation </h3>
