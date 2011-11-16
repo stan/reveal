@@ -56,7 +56,7 @@
 /* Mobile */		
 @media handheld, only screen and (device-width: 768px), (device-width: 800px) 
 {
-    .reveal-modal-bg { position: absolute;  }
+    .reveal-modal-bg { position: absolute; }
     .reveal-modal, .reveal-modal.small, .reveal-modal.medium, .reveal-modal.large,.reveal-modal.xlarge 
     { 
         height: auto;
@@ -64,7 +64,7 @@
         margin-left: 0px; 
         padding: 5%;
         top: 30%;  
-         width: 60%; 
+        width: 60%; 
     }
 }
 		
@@ -78,7 +78,6 @@
         margin-left: 0px; 
         padding: 5%;
         top: 15%;  
-        width: 80%; 
-    
+        width: 80%;     
     }
 }
