@@ -8,7 +8,6 @@
 
 (function ($) {
     "use strict";
-    var ajaxContent = 'reveal-ajax-content';
     var defaults = {
         animation: 'fadeAndPop',                    // fade, fadeAndPop, none
         animationSpeed: 250,                        // how fast animations are
@@ -20,17 +19,15 @@
         dismissCallback: function () { },          // optional callback to run after the modal has closed
         contentUrl: false,
         contentId: false
-    };
+    }, ajaxContent = 'reveal-ajax-content';
 
     $('a[data-reveal-id], a[data-content-url]').live('click', function (e) {
         e.preventDefault();
         $(this).blur();
 
-        var modalId = $(this).data('reveal-id'),
-            modalContentUrl = $(this).data('content-url'),
-            modal = $('#' + modalId);
+        var modal = $('#' + $(this).data('reveal-id'));
 
-        if (modalContentUrl && !modalId) {
+        if ($(this).data('content-url') && modal.length === 0) {
             modal = $(document.createElement('div')).addClass('reveal-modal').attr('id', ajaxContent).appendTo($('body'));
         }
 
