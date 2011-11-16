@@ -1,7 +1,7 @@
 <h1>Fork specific features</h1>
 <p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Might branch jQuery 1.7 and use on/off.</p>
 <ul>
-  <li>Can load content via ajax in to a modal [contentUrl/data-content-url]
+  <li>Can load content via ajax in to a modal [contentUrl/data-content-url, contentId/data-content-id]
     <ul>
       <li>'data-content-url' loads the data at the url in to the specified modal (data-reveal-id)</li>
       <li>'data-content-id' loads the data from an element with the specified id at the url (requires data-content-url to be defined)</li>
