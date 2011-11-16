@@ -28,6 +28,7 @@
             topOffset = modal.height() + topMeasure,
             locked = false,
             background = $('.reveal-modal-bg'),
+            timeout = null,
             options = $.extend({}, defaults, args);
 
             // open
@@ -106,7 +107,7 @@
 
                     background.delay(options.animationSpeed).fadeOut(options.animationSpeed);
                 }
-
+                clearTimeout(timeout);
                 locked = false;
                 modal.unbind('reveal:close');
             });
@@ -114,7 +115,7 @@
             modal.trigger('reveal:open');
 
             if (options.closeOnTimeout)
-                setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
+                timeout = setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
         });
     };
 })(jQuery);
