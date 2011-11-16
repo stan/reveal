@@ -54,10 +54,10 @@
                         options.animationSpeed = 0;
                     }
 
+                    background.fadeIn(options.animationSpeed / 2);
                     modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
                         eval(options.revealedCallback);
                     });
-                    background.fadeIn(options.animationSpeed / 2);
                 }
 
                 // close if the background is clicked
