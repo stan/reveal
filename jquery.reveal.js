@@ -44,6 +44,7 @@
 
                     var animations = { 'opacity': 1 };
                     var css = {};
+
                     if (options.animation == 'fadeAndPop') {
                         css.top = $(document).scrollTop() - topMeasure;
                         animations.top = $(document).scrollTop() + topMeasure + 'px';
