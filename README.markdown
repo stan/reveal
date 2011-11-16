@@ -1,18 +1,18 @@
 <h1>Fork specific features</h1>
 <p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Demo.html contains demos of all the below features.</p>
 <ul>
-  <li>Can load an image directly into an on-the-fly modal (currently basic, no resizing) [data-reveal-image]</li>
-  <li>Can load content via ajax in to an on-the-fly modal [data-reveal-url, data-reveal-url-id]
+  <li>Can load an image directly into an on-the-fly modal (currently basic, no resizing) <strong>[data-reveal-image]</strong></li>
+  <li>Can load content via ajax in to an on-the-fly modal <strong>[data-reveal-url, data-reveal-url-id]</strong>
     <ul>
       <li>'data-reveal-url' loads the data at the url (data-reveal-id)</li>
       <li>'data-reveal-url-id' loads the data from an element with the specified id at the url (requires data-reveal-url to be defined)</li>
     </ul>
   </li>
-  <li>Can close a modal using a function [$('#myModal').reveal('close');]</li>
-  <li>Can specify a callback function that gets executed AFTER the OPEN animation (default NONE) [openedCallback/data-opened-callback]</li>
-  <li>Can specify a callback function that gets executed AFTER the CLOSE animation (default NONE) [closedCallback/data-closed-callback]</li>
-  <li>Can specify a timeout value to close the modal after x milliseconds (default NONE) [closeOnTimeout/data-close-on-timeout]</li>
-  <li>Can specify a custom key to close the modal (default 27 (ESCAPE)) - or set it to FALSE to disable [closeOnKey/data-close-on-key]</li>
+  <li>Can close a modal using a function <strong>[$('#myModal').reveal('close');]</strong></li>
+  <li>Can specify a callback function that gets executed AFTER the OPEN animation (default NONE) <strong>[openedCallback/data-opened-callback]</strong></li>
+  <li>Can specify a callback function that gets executed AFTER the CLOSE animation (default NONE) <strong>[closedCallback/data-closed-callback]</strong></li>
+  <li>Can specify a timeout value to close the modal after x milliseconds (default NONE) <strong>[closeOnTimeout/data-close-on-timeout]</strong></li>
+  <li>Can specify a custom key to close the modal (default 27 (ESCAPE)) - or set it to FALSE to disable <strong>[closeOnKey/data-close-on-key]</strong></li>
   <li>Optimized animation code - reduced by 10-20 lines</li>
   <li>Cleaned javascript and restructured to make it clearer</li>
   <li>Cleaned css and added 'x' close button hover effect</li>  
