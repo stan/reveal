@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Reveal Ajax Demo</title>
+
+        		
+		<style type="text/css">
+			.code { background: #000; color: #eee; padding: 10px; }
+
+			code { color: #fff; }
+		</style>
+	</head>
+	<body>
+		<div id="description">
+			<h1>Reveal: jQuery Modals Made Easy</h1>
+			<p class="lead">Setting up Reveal modals is only three easy steps. Attach the needed files, drop in your modal markup then add an attribute to your button.</p>
+			<p>Reveal is awesome because it's easy to implement, is cross-browser compatible with modern browsers (with some graceful degradation of course) and lightweight coming in at only 1.75KB. What that means for you is that it's fast, sexy and just works. <strong>Now let's see how easy is can be to get Reveal working!</strong></p>
+			<hr /><br />
+		</div>
+		<div>	
+			<h3>Step 1: Attach Needed Files</h3>
+			<p>Clearly you need the Reveal kit to do this though so make sure you <a href="/playground/jquery-modal-plugin/reveal.zip">download it</a>.</p><hr /><br />
+			
+			
+			<h3>Step 2: The Modal Markup</h3>
+			<p>Just give your modal div the class "reveal-modal"and a unique ID (we'll use the ID to launch this modal). Also, the anchor with the "close-reveal-modal" class gives a button to close the modal (although by default clicking the faded black background will also close the modal). Placing the markup just before your close body tag is usually the best place for it.</p><hr /><br />
+			
+			<h3>Step 3: Attaching Your Handler</h3>
+			<p>By putting the "data-reveal-id" attribute on the anchor, when clicked the plugin matches the value of the "data-reveal-id" attribute (in this case "myModal") with an HTML element with that ID.</p>
+			<h5>Basically, put the "data-reveal-id" attribute on an<br /> object and make it's value the ID of your modal.</h5><br />
+			<p>While the "data-reveal-id" is an awesome way to make firing a modal stupid-easy, <strong>in many cases developers will still need to be fired programatically.</strong> That's easy enough too...</p>
+			<br /><hr /><br />
+			
+
+			<h3>Options</h3>
+			<p>Every good plugin has options, and this one has just a few, but important ones:</p>
+			<p><strong>Wondering how to use the options when you're using the "data-reveal-id" implementation</strong>? Basically take the option and add the "data-" before and pass a valid value. Here is it with default values:</p>
+		    <br /><br />
+			<h5>The Reveal plugin is licensed to use and<br /> abuse under the MIT license. Ballin!</h5>
+		</div>
+	</body>
+</html>

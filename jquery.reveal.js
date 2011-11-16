@@ -120,7 +120,6 @@
                     modal.unbind('reveal:close');
                 });
 
-                // open the dialog
                 if (options.contentUrl) {
                     if (options.contentId) {
                         options.contentUrl += ' #' + options.contentId;
@@ -128,13 +127,8 @@
 
                     modal.load(options.contentUrl, null, function () {
                         $(this).append($('<a class="close-reveal-modal">&#215;</a>'));
-                        modal.trigger('reveal:open');
                     });
-                } else {
-                    modal.trigger('reveal:open');
                 }
-
-
 
                 modal.trigger('reveal:open');
 
