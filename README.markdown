@@ -1,5 +1,5 @@
 <h1>Fork specific features</h1>
-<p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings.</p>
+<p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Demo.html contains demos of all the below features.</p>
 <ul>
   <li>Can load an image directly into an on-the-fly modal (currently basic, no resizing) [data-reveal-image]</li>
   <li>Can load content via ajax in to an on-the-fly modal [data-reveal-url, data-reveal-url-id]
