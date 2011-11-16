@@ -16,25 +16,25 @@
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
         openedCallback: function () { },            // optional callback to run after the modal has revealed (loaded)
-        closedCallback: function () { },            // optional callback to run after the modal has closed
-        contentUrl: false,                          // a url to load data from (via ajax) in to the modal
-        contentId: false                            // an element id at the provided url to load the data from
+        closedCallback: function () { }             // optional callback to run after the modal has closed
     }, imgModal = 'reveal-image-modal', ajaxModal = 'reveal-ajax-modal';
 
-    $('a[data-reveal-id], a[data-reveal-image], a[data-content-url]').live('click', function (e) {
+    $('a[data-reveal-id], a[data-reveal-image], a[data-reveal-url]').live('click', function (e) {
         e.preventDefault();
         $(this).blur();
 
         var modal = $('#' + $(this).data('reveal-id')),
-            image = $(this).data('reveal-image');
+            image = $(this).data('reveal-image'),
+            url = $(this).data('reveal-url'),
+            close = $('<a class="close-reveal-modal">&#215;</a>');
 
         if (image) {
             modal = $(document.createElement('div')).append($('<img src="' + image + '" />'))
-                                                    .append($('<a class="close-reveal-modal">&#215;</a>'))                                                    
-                                                    .attr('id', imgModal)
-                                                    .appendTo($('body'));
-        } else if ($(this).data('content-url') && modal.length === 0) {
-            modal = $(document.createElement('div')).attr('id', ajaxModal).appendTo($('body'));
+                                                    .append(close).attr('id', imgModal).appendTo($('body'));
+        } else if (url && modal.length === 0) {
+            url = ($(this).data('reveal-url-id') ? url += ' #' + $(this).data('reveal-url-id') : url);
+            modal = $(document.createElement('div')).load(url, null, function () { $(this).append(close); })
+                                                    .attr('id', ajaxModal).appendTo($('body'));
         }
 
         modal.addClass('reveal-modal').reveal($(this).data());
@@ -134,16 +134,6 @@
                     locked = false;
                     modal.unbind('reveal:close');
                 });
-
-                if (options.contentUrl) {
-                    if (options.contentId) {
-                        options.contentUrl += ' #' + options.contentId;
-                    }
-
-                    modal.load(options.contentUrl, null, function () {
-                        $(this).append($('<a class="close-reveal-modal">&#215;</a>'));
-                    });
-                }
 
                 modal.trigger('reveal:open');
 
