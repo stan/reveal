@@ -35,10 +35,7 @@
                 });
             });
 
-            function removeLink() {
-                $('#myModal').find('.programmatic-link').remove();
-            }
-
+            function removeLink() { $('#myModal').find('.programmatic-link').remove(); }
             function revealed() { alert('modal revealed! do some magic'); }
             function dismissed() { alert('modal closed! do some magic'); }
         </script>
@@ -61,7 +58,7 @@
 
         <h1>Options (using fade and pop)</h1>
         
-        <a href="#" class="big-link programmatic" data-reveal-id="myModal" data-dismiss-callback="removeLink()">
+        <a href="#" class="big-link programmatic" data-reveal-id="myModal" data-dismiss-callback="removeLink">
 			Programmatically close the modal
 		</a>
 
@@ -73,13 +70,14 @@
 			Close on timeout (after 3 seconds)
 		</a>
 
-        <a href="#" class="big-link" data-reveal-id="myModal" data-revealed-callback="revealed()">
+        <a href="#" class="big-link" data-reveal-id="myModal" data-revealed-callback="revealed">
 			Revealed Callback
 		</a>
 
-        <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="dismissed()">
+        <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="dismissed">
 			Dismissed Callback (close the modal to fire)
 		</a>
+
 		<div id="myModal" class="reveal-modal">
 			<h1>Reveal Modal Goodness</h1>
 			<p>This is a default modal in all its glory, but any of the styles here can easily be changed in the CSS.</p>

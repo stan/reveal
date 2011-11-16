@@ -7,6 +7,7 @@
 */
 
 (function ($) {
+    "use strict";
     var defaults = {
         animation: 'fadeAndPop',                    // fade, fadeAndPop, none
         animationSpeed: 250,                        // how fast animations are
@@ -14,8 +15,8 @@
         closeOnKey: 27,                             // close on a specific key (27 is the keycode for the escape key)
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
-        revealedCallback: null,                     // optional callback to run after the modal has revealed (loaded)
-        dismissCallback: null                       // optional callback to run after the modal has closed
+        revealedCallback: function () { },                     // optional callback to run after the modal has revealed (loaded)
+        dismissCallback: function () { }                       // optional callback to run after the modal has closed
     };
 
     $('a[data-reveal-id]').live('click', function (e) {
@@ -27,17 +28,22 @@
         if (typeof args === 'object' || !args) {
             return this.each(function () {
                 var modal = $(this),
-                topMeasure = parseInt(modal.css('top')),
-                topOffset = modal.height() + topMeasure,
-                locked = false,
-                background = $('.reveal-modal-bg'),
-                timeout = null,
-                options = $.extend({}, defaults, args);
+                    topMeasure = parseInt(modal.css('top'), 10),
+                    topOffset = modal.height() + topMeasure,
+                    locked = false,
+                    background = $('.reveal-modal-bg'),
+                    timeout = null,
+                    options = $.extend({}, defaults, args);
+
+                function close() {
+                    modal.trigger('reveal:close');
+                }
 
                 // open
                 modal.bind('reveal:open', function () {
-                    if (background.length === 0)
+                    if (background.length === 0) {
                         background = $('<div class="reveal-modal-bg" />').insertAfter(modal).fadeTo('fast', 0.8);
+                    }
 
                     if (!locked) {
                         locked = true;
@@ -45,30 +51,34 @@
                         var animations = { 'opacity': 1 };
                         modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
-                        if (options.animation == 'fadeAndPop') {
+                        if (options.animation === 'fadeAndPop') {
                             modal.css('top', $(document).scrollTop() - topMeasure);
                             animations.top = $(document).scrollTop() + topMeasure + 'px';
-                        } else if (options.animation == 'fade') {
+                        } else if (options.animation === 'fade') {
                             // nothing
-                        } else if (options.animation == 'none') {
+                        } else if (options.animation === 'none') {
                             modal.css('opacity', 1);
                             options.animationSpeed = 0;
                         }
 
                         background.fadeIn(options.animationSpeed / 2);
                         modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
-                            eval(options.revealedCallback);
+                            if (typeof window[options.revealedCallback] === 'function') {
+                                window[options.revealedCallback]();
+                            }
                         });
 
                         // close if the background is clicked
-                        if (options.closeOnBackgroundClick)
+                        if (options.closeOnBackgroundClick) {
                             background.css('cursor', 'pointer').bind('click', close);
+                        }
 
                         // close if the specified key is pressed (default escape)
                         if (options.closeOnKey) {
                             $('body').keyup(function (e) {
-                                if (e.which === options.closeOnKey)
+                                if (e.which === options.closeOnKey) {
                                     close();
+                                }
                             });
                         }
 
@@ -83,21 +93,23 @@
                 // close
                 modal.bind('reveal:close', function () {
                     if (!locked) {
-                        locked = true
+                        locked = true;
 
                         var animations = { 'opacity': 0 }, css = { 'top': topMeasure, 'visibility': 'hidden' };
 
-                        if (options.animation == 'fadeAndPop') {
+                        if (options.animation === 'fadeAndPop') {
                             animations.top = $(document).scrollTop() - topOffset + 'px';
-                        } else if (options.animation == 'fade') {
+                        } else if (options.animation === 'fade') {
                             // nothing
-                        } else if (options.animation == 'none') {
+                        } else if (options.animation === 'none') {
                             options.animationSpeed = 0;
                         }
 
                         modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
                         background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
-                            eval(options.dismissCallback);
+                            if (typeof window[options.dismissCallback] === 'function') {
+                                window[options.dismissCallback]();
+                            }
                         });
                     }
 
@@ -108,11 +120,8 @@
 
                 modal.trigger('reveal:open');
 
-                if (options.closeOnTimeout)
+                if (options.closeOnTimeout) {
                     timeout = setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
-
-                function close() {
-                    modal.trigger('reveal:close');
                 }
             });
         } else if (args === 'close') {
