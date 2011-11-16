@@ -15,10 +15,10 @@
         closeOnKey: 27,                             // close on a specific key (27 is the keycode for the escape key)
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
-        revealedCallback: function () { },          // optional callback to run after the modal has revealed (loaded)
-        dismissCallback: function () { },          // optional callback to run after the modal has closed
-        contentUrl: false,
-        contentId: false
+        openedCallback: function () { },            // optional callback to run after the modal has revealed (loaded)
+        closedCallback: function () { },            // optional callback to run after the modal has closed
+        contentUrl: false,                          // a url to load data from (via ajax) in to the modal
+        contentId: false                            // an element id at the provided url to load the data from
     }, ajaxContent = 'reveal-ajax-content';
 
     $('a[data-reveal-id], a[data-content-url]').live('click', function (e) {
@@ -73,8 +73,8 @@
 
                         background.fadeTo(options.animationSpeed, 0.8).fadeIn(options.animationSpeed / 2);
                         modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
-                            if (typeof window[options.revealedCallback] === 'function') {
-                                window[options.revealedCallback]();
+                            if (typeof window[options.openedCallback] === 'function') {
+                                window[options.openedCallback]();
                             }
                         });
 
@@ -118,8 +118,8 @@
                                 modal.remove();
                             }
 
-                            if (typeof window[options.dismissCallback] === 'function') {
-                                window[options.dismissCallback]();
+                            if (typeof window[options.closedCallback] === 'function') {
+                                window[options.closedCallback]();
                             }
                         });
                     }
