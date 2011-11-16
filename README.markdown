@@ -1,8 +1,8 @@
 <h1>Fork specific features</h1>
 <p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Might branch jQuery 1.7 and use on/off.</p>
 <ul>
-  <li>Can specify a callback function that gets executed AFTER the close animation (default none) [dismissCallback/data-dismiss-callback]</li>
-  <li>Can specify a timeout value to close the modal after x milliseconds (default disabled) [closeOnTimeout/data-close-on-timeout]</li>
+  <li>Can specify a callback function that gets executed AFTER the close animation (default NONE) [dismissCallback/data-dismiss-callback]</li>
+  <li>Can specify a timeout value to close the modal after x milliseconds (default DISABLED) [closeOnTimeout/data-close-on-timeout]</li>
   <li>Can specify a custom key to close the modal (default as ESCAPE) - or set it to false to disable [closeOnKey/data-close-on-key]</li>
   <li>Cleaned javascript and restructured to make it clearer</li>
   <li>Cleaned css and added 'x' close button hover effect</li>  
