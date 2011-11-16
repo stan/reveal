@@ -57,17 +57,17 @@
 
 
         <h1>Options (using fade and pop)</h1>
-        
+
         <a href="#" class="big-link programmatic" data-reveal-id="myModal" data-dismiss-callback="removeLink">
 			Programmatically close the modal
 		</a>
 
 		<a href="#" class="big-link" data-reveal-id="myModal" data-close-on-key="17">
-			Close on CTRL key
+			Close On Key (ctrl)
 		</a>	
 		
 		<a href="#" class="big-link" data-reveal-id="myModal" data-close-on-timeout="3000">
-			Close on timeout (after 3 seconds)
+			Close On Timeout (3 seconds)
 		</a>
 
         <a href="#" class="big-link" data-reveal-id="myModal" data-revealed-callback="revealed">
@@ -76,6 +76,17 @@
 
         <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="dismissed">
 			Dismissed Callback (close the modal to fire)
+		</a>
+
+
+        <h1>Ajax (won't work via file:///)</h1>
+
+        <a href="#" class="big-link" data-reveal-id="myModal" data-content-url="demo-ajax.html">
+			Ajax Content
+		</a>
+        
+        <a href="#" class="big-link" data-reveal-id="myModal" data-content-url="demo-ajax.html" data-content-id="description">
+			Ajax Content (Targeted Id)
 		</a>
 
 		<div id="myModal" class="reveal-modal">

@@ -15,8 +15,10 @@
         closeOnKey: 27,                             // close on a specific key (27 is the keycode for the escape key)
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
-        revealedCallback: function () { },                     // optional callback to run after the modal has revealed (loaded)
-        dismissCallback: function () { }                       // optional callback to run after the modal has closed
+        revealedCallback: function () { },          // optional callback to run after the modal has revealed (loaded)
+        dismissCallback: function () { },          // optional callback to run after the modal has closed
+        contentUrl: false,
+        contentId: false
     };
 
     $('a[data-reveal-id]').live('click', function (e) {
@@ -117,6 +119,22 @@
                     locked = false;
                     modal.unbind('reveal:close');
                 });
+
+                // open the dialog
+                if (options.contentUrl) {
+                    if (options.contentId) {
+                        options.contentUrl += ' #' + options.contentId;
+                    }
+
+                    modal.load(options.contentUrl, null, function () {
+                        $(this).append($('<a class="close-reveal-modal">&#215;</a>'));
+                        modal.trigger('reveal:open');
+                    });
+                } else {
+                    modal.trigger('reveal:open');
+                }
+
+
 
                 modal.trigger('reveal:open');
 
