@@ -83,7 +83,7 @@
                         }
 
                         if (options.closeOnKey) {
-                            $('body').keyup(function (e) {
+                            $(document).unbind('keyup').keyup(function (e) {
                                 if (e.which === options.closeOnKey) {
                                     close();
                                 }
