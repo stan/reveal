@@ -9,8 +9,8 @@
     </ul>
   </li>
   <li>Can close a modal using a function [$('#myModal').reveal('close');]</li>
-  <li>Can specify a callback function that gets executed AFTER the OPEN animation (default NONE) [revealedCallback/data-revealed-callback]</li>
-  <li>Can specify a callback function that gets executed AFTER the CLOSE animation (default NONE) [dismissCallback/data-dismiss-callback]</li>
+  <li>Can specify a callback function that gets executed AFTER the OPEN animation (default NONE) [openedCallback/data-opened-callback]</li>
+  <li>Can specify a callback function that gets executed AFTER the CLOSE animation (default NONE) [closedCallback/data-closed-callback]</li>
   <li>Can specify a timeout value to close the modal after x milliseconds (default NONE) [closeOnTimeout/data-close-on-timeout]</li>
   <li>Can specify a custom key to close the modal (default ESCAPE) - or set it to FALSE to disable [closeOnKey/data-close-on-key]</li>
   <li>Optimized animation code - reduced by 10-20 lines</li>
