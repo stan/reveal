@@ -26,12 +26,26 @@
 		</style>
 
         <script type="text/javascript">
+            $(document).ready(function () {
+                $('.programmatic').click(function () {            
+                    $('#myModal').append($('<a href="#" class="programmatic-link">Close (programmatically)</a>'))
+                                 .find('.programmatic-link').click(function () {
+                                     $('#myModal').reveal('close');
+                                 });
+                });
+            });
+
+            function removeLink() {
+                $('#myModal').find('.programmatic-link').remove();
+            }
+
             function revealed() { alert('modal revealed! do some magic'); }
             function dismissed() { alert('modal closed! do some magic'); }
         </script>
 	</head>
 	<body>
         <h1>Animations</h1>
+
 		<a href="#" class="big-link" data-reveal-id="myModal">
 			Fade and Pop
 		</a>	
@@ -44,7 +58,13 @@
 			None
 		</a>
 
+
         <h1>Options (using fade and pop)</h1>
+        
+        <a href="#" class="big-link programmatic" data-reveal-id="myModal" data-dismiss-callback="removeLink()">
+			Programmatically close the modal
+		</a>
+
 		<a href="#" class="big-link" data-reveal-id="myModal" data-close-on-key="17">
 			Close on CTRL key
 		</a>	
@@ -60,7 +80,6 @@
         <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="dismissed()">
 			Dismissed Callback (close the modal to fire)
 		</a>
-
 		<div id="myModal" class="reveal-modal">
 			<h1>Reveal Modal Goodness</h1>
 			<p>This is a default modal in all its glory, but any of the styles here can easily be changed in the CSS.</p>

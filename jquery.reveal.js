@@ -24,95 +24,101 @@
     });
 
     $.fn.reveal = function (args) {
-        return this.each(function () {
-            var modal = $(this),
-            topMeasure = parseInt(modal.css('top')),
-            topOffset = modal.height() + topMeasure,
-            locked = false,
-            background = $('.reveal-modal-bg'),
-            timeout = null,
-            options = $.extend({}, defaults, args);
+        if (typeof args === 'object' || !args) {
+            return this.each(function () {
+                var modal = $(this),
+                topMeasure = parseInt(modal.css('top')),
+                topOffset = modal.height() + topMeasure,
+                locked = false,
+                background = $('.reveal-modal-bg'),
+                timeout = null,
+                options = $.extend({}, defaults, args);
 
-            // open
-            modal.bind('reveal:open', function () {
-                if (background.length === 0)
-                    background = $('<div class="reveal-modal-bg" />').insertAfter(modal).fadeTo('fast', 0.8);
+                // open
+                modal.bind('reveal:open', function () {
+                    if (background.length === 0)
+                        background = $('<div class="reveal-modal-bg" />').insertAfter(modal).fadeTo('fast', 0.8);
 
-                if (!locked) {
-                    locked = true;
+                    if (!locked) {
+                        locked = true;
 
-                    var animations = { 'opacity': 1 };
-                    modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
+                        var animations = { 'opacity': 1 };
+                        modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
-                    if (options.animation == 'fadeAndPop') {
-                        modal.css('top', $(document).scrollTop() - topMeasure);
-                        animations.top = $(document).scrollTop() + topMeasure + 'px';
-                    } else if (options.animation == 'fade') {
-                        // nothing
-                    } else if (options.animation == 'none') {
-                        modal.css('opacity', 1);
-                        options.animationSpeed = 0;
+                        if (options.animation == 'fadeAndPop') {
+                            modal.css('top', $(document).scrollTop() - topMeasure);
+                            animations.top = $(document).scrollTop() + topMeasure + 'px';
+                        } else if (options.animation == 'fade') {
+                            // nothing
+                        } else if (options.animation == 'none') {
+                            modal.css('opacity', 1);
+                            options.animationSpeed = 0;
+                        }
+
+                        background.fadeIn(options.animationSpeed / 2);
+                        modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
+                            eval(options.revealedCallback);
+                        });
+
+                        // close if the background is clicked
+                        if (options.closeOnBackgroundClick)
+                            background.css('cursor', 'pointer').bind('click', close);
+
+                        // close if the specified key is pressed (default escape)
+                        if (options.closeOnKey) {
+                            $('body').keyup(function (e) {
+                                if (e.which === options.closeOnKey)
+                                    close();
+                            });
+                        }
+
+                        // close if the x is clicked
+                        modal.find('.' + options.dismissModalClass).live('click', close);
                     }
 
-                    background.fadeIn(options.animationSpeed / 2);
-                    modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
-                        eval(options.revealedCallback);
-                    });
+                    locked = false;
+                    modal.unbind('reveal:open');
+                });
 
-                    // close if the background is clicked
-                    if (options.closeOnBackgroundClick)
-                        background.css('cursor', 'pointer').bind('click', close);
+                // close
+                modal.bind('reveal:close', function () {
+                    if (!locked) {
+                        locked = true
 
-                    // close if the specified key is pressed (default escape)
-                    if (options.closeOnKey) {
-                        $('body').keyup(function (e) {
-                            if (e.which === options.closeOnKey)
-                                close();
+                        var animations = { 'opacity': 0 }, css = { 'top': topMeasure, 'visibility': 'hidden' };
+
+                        if (options.animation == 'fadeAndPop') {
+                            animations.top = $(document).scrollTop() - topOffset + 'px';
+                        } else if (options.animation == 'fade') {
+                            // nothing
+                        } else if (options.animation == 'none') {
+                            options.animationSpeed = 0;
+                        }
+
+                        modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
+                        background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
+                            eval(options.dismissCallback);
                         });
                     }
 
-                    // close if the x is clicked
-                    modal.find('.' + options.dismissModalClass).live('click', close);
+                    clearTimeout(timeout);
+                    locked = false;
+                    modal.unbind('reveal:close');
+                });
+
+                modal.trigger('reveal:open');
+
+                if (options.closeOnTimeout)
+                    timeout = setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
+
+                function close() {
+                    modal.trigger('reveal:close');
                 }
-
-                locked = false;
-                modal.unbind('reveal:open');
             });
-
-            // close
-            modal.bind('reveal:close', function () {
-                if (!locked) {
-                    locked = true
-
-                    var animations = { 'opacity': 0 }, css = { 'top': topMeasure, 'visibility': 'hidden' };
-
-                    if (options.animation == 'fadeAndPop') {
-                        animations.top = $(document).scrollTop() - topOffset + 'px';
-                    } else if (options.animation == 'fade') {
-                        // nothing
-                    } else if (options.animation == 'none') {
-                        options.animationSpeed = 0;
-                    }
-
-                    modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
-                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
-                        eval(options.dismissCallback);
-                    });
-                }
-
-                clearTimeout(timeout);
-                locked = false;
-                modal.unbind('reveal:close');
+        } else if (args === 'close') {
+            return this.each(function () {
+                $(this).trigger('reveal:close');
             });
-
-            modal.trigger('reveal:open');
-
-            if (options.closeOnTimeout)
-                timeout = setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
-
-            function close() {
-                modal.trigger('reveal:close');
-            }
-        });
+        }
     };
 })(jQuery);
