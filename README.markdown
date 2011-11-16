@@ -1,4 +1,5 @@
 <h1>Fork specific features</h1>
+<p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Might branch jQuery 1.7 and use on/off.</p>
 <ul>
   <li>Can now choose a specific key to close the modal - defaults to escape</li>
   <li>Cleaned javascript and restructured to make it clearer</li>
