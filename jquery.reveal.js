@@ -8,6 +8,7 @@
 
 (function ($) {
     "use strict";
+    var ajaxContent = 'reveal-ajax-content';
     var defaults = {
         animation: 'fadeAndPop',                    // fade, fadeAndPop, none
         animationSpeed: 250,                        // how fast animations are
@@ -21,9 +22,19 @@
         contentId: false
     };
 
-    $('a[data-reveal-id]').live('click', function (e) {
+    $('a[data-reveal-id], a[data-content-url]').live('click', function (e) {
         e.preventDefault();
-        $('#' + $(this).attr('data-reveal-id')).reveal($(this).data());
+        $(this).blur();
+
+        var modalId = $(this).data('reveal-id'),
+            modalContentUrl = $(this).data('content-url'),
+            modal = $('#' + modalId);
+
+        if (modalContentUrl && !modalId) {
+            modal = $(document.createElement('div')).addClass('reveal-modal').attr('id', ajaxContent).appendTo($('body'));
+        }
+
+        modal.reveal($(this).data());
     });
 
     $.fn.reveal = function (args) {
@@ -70,12 +81,10 @@
                             }
                         });
 
-                        // close if the background is clicked
                         if (options.closeOnBackgroundClick) {
                             background.css('cursor', 'pointer').bind('click', close);
                         }
 
-                        // close if the specified key is pressed (default escape)
                         if (options.closeOnKey) {
                             $('body').keyup(function (e) {
                                 if (e.which === options.closeOnKey) {
@@ -84,7 +93,6 @@
                             });
                         }
 
-                        // close if the x is clicked
                         modal.find('.' + options.dismissModalClass).live('click', close);
                     }
 
@@ -109,6 +117,10 @@
 
                         modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
                         background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
+                            if (modal.attr('id') === ajaxContent) {
+                                modal.remove();
+                            }
+
                             if (typeof window[options.dismissCallback] === 'function') {
                                 window[options.dismissCallback]();
                             }

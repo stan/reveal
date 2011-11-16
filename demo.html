@@ -81,18 +81,26 @@
 
         <h1>Ajax (won't work via file:///)</h1>
 
-        <a href="#" class="big-link" data-reveal-id="myModal" data-content-url="demo-ajax.html">
+        <a href="#" class="big-link" data-reveal-id="myAjaxModal" data-content-url="demo-ajax.html">
 			Ajax Content
 		</a>
         
-        <a href="#" class="big-link" data-reveal-id="myModal" data-content-url="demo-ajax.html" data-content-id="description">
+        <a href="#" class="big-link" data-reveal-id="myAjaxModal" data-content-url="demo-ajax.html" data-content-id="step-two">
 			Ajax Content (Targeted Id)
+		</a>
+        
+        <a href="#" class="big-link" data-content-url="demo-ajax.html" data-content-id="step-two">
+			Ajax Content (on-the-fly modal)
 		</a>
 
 		<div id="myModal" class="reveal-modal">
 			<h1>Reveal Modal Goodness</h1>
 			<p>This is a default modal in all its glory, but any of the styles here can easily be changed in the CSS.</p>
 			<a class="close-reveal-modal">&#215;</a>
+		</div>
+
+		<div id="myAjaxModal" class="reveal-modal">
+
 		</div>
 			
 	</body>

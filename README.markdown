@@ -1,6 +1,13 @@
 <h1>Fork specific features</h1>
 <p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings. Might branch jQuery 1.7 and use on/off.</p>
 <ul>
+  <li>Can load content via ajax in to a modal [contentUrl/data-content-url]
+    <ul>
+      <li>'data-content-url' loads the data at the url in to the specified modal (data-reveal-id)</li>
+      <li>'data-content-id' loads the data from an element with the specified id at the url (requires data-content-url to be defined)</li>
+      <li>Using 'data-content-url' DOES NOT require a modal (data-reveal-id) to be specified - a temporary modal will be created and destroyed on close</li>      
+    </ul>
+  </li>
   <li>Can close a modal using a function [$('#myModal').reveal('close');]</li>
   <li>Can specify a callback function that gets executed AFTER the OPEN animation (default NONE) [revealedCallback/data-revealed-callback]</li>
   <li>Can specify a callback function that gets executed AFTER the CLOSE animation (default NONE) [dismissCallback/data-dismiss-callback]</li>
