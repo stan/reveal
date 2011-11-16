@@ -2,7 +2,7 @@
 <p>Note - stuck with jQuery 1.6.4 and maintained support for the 'old' event bindings.</p>
 <ul>
   <li>Can load an image directly into an on-the-fly modal (currently basic, no resizing) [data-reveal-image]</li>
-  <li>Can load content via ajax in to an on-the-fly modal [data-content-url, data-content-id]
+  <li>Can load content via ajax in to an on-the-fly modal [data-reveal-url, data-reveal-url-id]
     <ul>
       <li>'data-reveal-url' loads the data at the url in to the specified modal (data-reveal-id)</li>
       <li>'data-reveal-url-id' loads the data from an element with the specified id at the url (requires data-reveal-url to be defined)</li>
