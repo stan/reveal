@@ -12,6 +12,7 @@
         animationSpeed: 300,                    // how fast animtions are
         closeOnBackgroundClick: true,           // if you click background will modal close?
         closeOnKey: 27,                         // close on a specific key (27 is the keycode for the escape key)
+        closeOnTimeout: false,                  // close the modal after provided given milliseconds
         dismissModalClass: 'close-reveal-modal' // the class of a button or element that will close an open modal
     };
 
@@ -22,12 +23,12 @@
 
     $.fn.reveal = function (args) {
         return this.each(function () {
-            var modal   = $(this),
-            topMeasure  = parseInt(modal.css('top')),
-            topOffset   = modal.height() + topMeasure,
-            locked      = false,
-            background  = $('.reveal-modal-bg'),
-            options     = $.extend({}, defaults, args);
+            var modal = $(this),
+            topMeasure = parseInt(modal.css('top')),
+            topOffset = modal.height() + topMeasure,
+            locked = false,
+            background = $('.reveal-modal-bg'),
+            options = $.extend({}, defaults, args);
 
             // open
             modal.bind('reveal:open', function () {
@@ -111,6 +112,9 @@
             });
 
             modal.trigger('reveal:open');
+
+            if (options.closeOnTimeout)
+                setTimeout(function () { modal.trigger('reveal:close'); }, options.closeOnTimeout);
         });
     };
 })(jQuery);
