@@ -64,7 +64,7 @@
                 }
 
                 // close if the specified key is pressed (default escape)
-                if (options.closeOnBackgroundClick) {
+                if (options.closeOnKey) {
                     $('body').keyup(function (e) {
                         if (e.which === options.closeOnKey)
                             modal.trigger('reveal:close');
