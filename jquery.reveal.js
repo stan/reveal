@@ -19,19 +19,25 @@
         closedCallback: function () { },            // optional callback to run after the modal has closed
         contentUrl: false,                          // a url to load data from (via ajax) in to the modal
         contentId: false                            // an element id at the provided url to load the data from
-    }, ajaxContent = 'reveal-ajax-content';
+    }, imgModal = 'reveal-image-modal', ajaxModal = 'reveal-ajax-modal';
 
-    $('a[data-reveal-id], a[data-content-url]').live('click', function (e) {
+    $('a[data-reveal-id], a[data-reveal-image], a[data-content-url]').live('click', function (e) {
         e.preventDefault();
         $(this).blur();
 
-        var modal = $('#' + $(this).data('reveal-id'));
+        var modal = $('#' + $(this).data('reveal-id')),
+            image = $(this).data('reveal-image');
 
-        if ($(this).data('content-url') && modal.length === 0) {
-            modal = $(document.createElement('div')).addClass('reveal-modal').attr('id', ajaxContent).appendTo($('body'));
+        if (image) {
+            modal = $(document.createElement('div')).append($('<img src="' + image + '" />'))
+                                                    .append($('<a class="close-reveal-modal">&#215;</a>'))                                                    
+                                                    .attr('id', imgModal)
+                                                    .appendTo($('body'));
+        } else if ($(this).data('content-url') && modal.length === 0) {
+            modal = $(document.createElement('div')).attr('id', ajaxModal).appendTo($('body'));
         }
 
-        modal.reveal($(this).data());
+        modal.addClass('reveal-modal').reveal($(this).data());
     });
 
     $.fn.reveal = function (args) {
@@ -114,7 +120,7 @@
 
                         modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
                         background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
-                            if (modal.attr('id') === ajaxContent) {
+                            if (modal.attr('id') === ajaxModal || modal.attr('id') === imgModal) {
                                 modal.remove();
                             }
 
