@@ -26,7 +26,8 @@
 		</style>
 
         <script type="text/javascript">
-            function callback() { alert('callback function fired!'); }
+            function revealed() { alert('modal revealed! do some magic'); }
+            function dismissed() { alert('modal closed! do some magic'); }
         </script>
 	</head>
 	<body>
@@ -52,8 +53,12 @@
 			Close on timeout (after 3 seconds)
 		</a>
 
-        <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="callback()">
-			Callback (close the modal to fire)
+        <a href="#" class="big-link" data-reveal-id="myModal" data-revealed-callback="revealed()">
+			Revealed Callback
+		</a>
+
+        <a href="#" class="big-link" data-reveal-id="myModal" data-dismiss-callback="dismissed()">
+			Dismissed Callback (close the modal to fire)
 		</a>
 
 		<div id="myModal" class="reveal-modal">

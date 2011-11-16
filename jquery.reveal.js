@@ -14,6 +14,7 @@
         closeOnKey: 27,                             // close on a specific key (27 is the keycode for the escape key)
         closeOnTimeout: false,                      // close the modal after provided given milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
+        revealedCallback: null,                     // optional callback to run after the modal has revealed (loaded)
         dismissCallback: null                       // optional callback to run after the modal has closed
     };
 
@@ -41,22 +42,22 @@
                     locked = true;
                     modal.css({ 'opacity': 0, 'top': $(document).scrollTop() + topMeasure, 'visibility': 'visible' });
 
+                    var animations = { 'opacity': 1 };
+
                     if (options.animation == 'fadeAndPop') {
-                        modal.css({ 'top': $(document).scrollTop() - topMeasure });
-                        modal.delay(options.animationSpeed / 2).animate({
-                            'top': $(document).scrollTop() + topMeasure + 'px',
-                            'opacity': 1
-                        }, options.animationSpeed);
+                        modal.css('top', $(document).scrollTop() - topMeasure);
+                        animations.top = $(document).scrollTop() + topMeasure + 'px';
                     } else if (options.animation == 'fade') {
-                        modal.delay(options.animationSpeed / 2).animate({
-                            'opacity': 1
-                        }, options.animationSpeed);
+                        // nothing
                     } else if (options.animation == 'none') {
-                        modal.css({ 'opacity': 1 });
+                        modal.css('opacity', 1);
                         options.animationSpeed = 0;
                     }
 
                     background.fadeIn(options.animationSpeed / 2);
+                    modal.delay(options.animationSpeed / 2).animate(animations, options.animationSpeed, function () {
+                        eval(options.revealedCallback);
+                    });
                 }
 
                 // close if the background is clicked
@@ -88,27 +89,19 @@
                 if (!locked) {
                     locked = true
 
+                    var animations = { 'opacity': 0 };
+                    var css = { 'top': topMeasure, 'visibility': 'hidden' };
+
                     if (options.animation == 'fadeAndPop') {
-                        modal.animate({
-                            'top': $(document).scrollTop() - topOffset + 'px',
-                            'opacity': 0
-                        }, options.animationSpeed / 2, function () {
-                            modal.css({ 'top': topMeasure, 'opacity': 1, 'visibility': 'hidden' });
-                        });
+                       animations.top = $(document).scrollTop() - topOffset + 'px';
                     } else if (options.animation == 'fade') {
-                        modal.animate({
-                            'opacity': 0
-                        }, options.animationSpeed, function () {
-                            modal.css({ 'opacity': 1, 'visibility': 'hidden', 'top': topMeasure });
-                        });
+                      // nothing
                     } else if (options.animation == 'none') {
-                        modal.css({ 'visibility': 'hidden', 'top': topMeasure });
                         options.animationSpeed = 0;
                     }
 
-                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () {
-                        eval(options.dismissCallback);
-                    });
+                    modal.animate(animations, options.animationSpeed, function () { modal.css(css); });
+                    background.delay(options.animationSpeed).fadeOut(options.animationSpeed, function () { eval(options.dismissCallback); });
                 }
 
                 clearTimeout(timeout);
