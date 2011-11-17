@@ -16,7 +16,7 @@
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
         openedCallback: function () { },            // optional callback to run after the modal has revealed (loaded)
-        closedCallback: function () { }             // optional callback to run after the modal has closed
+        closedCallback: function () { },            // optional callback to run after the modal has closed
     }, imgModal = 'reveal-image-modal', ajaxModal = 'reveal-ajax-modal';
 
     $('a[data-reveal-id], a[data-reveal-image], a[data-reveal-url]').live('click', function (e) {
@@ -33,7 +33,8 @@
                                                     .append(close).attr('id', imgModal).appendTo($('body'));
         } else if (url && modal.length === 0) {
             url = ($(this).data('reveal-url-id') ? url += ' #' + $(this).data('reveal-url-id') : url);
-            modal = $(document.createElement('div')).append($('<p class="reveal-ajax-loader">Loading content...</p>'))
+            var msg = ($(this).data('reveal-url-loading') ? $(this).data('reveal-url-loading') : 'We\'re just downloading the content, hang on in there!')
+            modal = $(document.createElement('div')).append($('<p class="reveal-ajax-loader">' + msg + '</p>'))
                                                     .load(url, null, function () {
                                                         $(this).find($('.reveal-ajax-loader')).remove();
                                                         $(this).append(close); 
