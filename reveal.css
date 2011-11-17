@@ -34,6 +34,14 @@
 .reveal-modal.large  { margin-left: -340px; width: 600px; }
 .reveal-modal.xlarge { margin-left: -440px; width: 800px; }
 
+.reveal-ajax-loader
+{
+    background: url(images/ajax-loader.gif) no-repeat;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 38px;   
+}
 .reveal-modal .close-reveal-modal 
 {
     color: #aaa;

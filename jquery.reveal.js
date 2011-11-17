@@ -33,8 +33,11 @@
                                                     .append(close).attr('id', imgModal).appendTo($('body'));
         } else if (url && modal.length === 0) {
             url = ($(this).data('reveal-url-id') ? url += ' #' + $(this).data('reveal-url-id') : url);
-            modal = $(document.createElement('div')).load(url, null, function () { $(this).append(close); })
-                                                    .attr('id', ajaxModal).appendTo($('body'));
+            modal = $(document.createElement('div')).append($('<p class="reveal-ajax-loader">Loading content...</p>'))
+                                                    .load(url, null, function () {
+                                                        $(this).find($('.reveal-ajax-loader')).remove();
+                                                        $(this).append(close); 
+                                                    }).attr('id', ajaxModal).appendTo($('body'));
         }
 
         modal.addClass('reveal-modal').reveal($(this).data());
