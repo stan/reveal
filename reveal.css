@@ -36,7 +36,7 @@
 
 .reveal-ajax-loader
 {
-    background: url(images/ajax-loader.gif) no-repeat;
+    background: url(ajax-loader.gif) no-repeat;
     font-weight: bold;
     height: 40px;
     line-height: 40px;
