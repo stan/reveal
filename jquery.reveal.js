@@ -16,29 +16,26 @@
         closeOnTimeout: false,                      // close the modal after provided  milliseconds
         dismissModalClass: 'close-reveal-modal',    // the class of a button or element that will close an open modal
         openedCallback: function () { },            // optional callback to run after the modal has revealed (loaded)
-        closedCallback: function () { },            // optional callback to run after the modal has closed
+        closedCallback: function () { }             // optional callback to run after the modal has closed
     }, imgModal = 'reveal-image-modal', ajaxModal = 'reveal-ajax-modal';
 
     $('a[data-reveal-id], a[data-reveal-image], a[data-reveal-url]').live('click', function (e) {
         e.preventDefault();
         $(this).blur();
 
-        var modal = $('#' + $(this).data('reveal-id')),
-            image = $(this).data('reveal-image'),
-            url = $(this).data('reveal-url'),
-            close = $('<a class="close-reveal-modal">&#215;</a>');
+        var modal   = $('#' + $(this).data('reveal-id')),
+            image   = $(this).data('reveal-image'),
+            url     = $(this).data('reveal-url'),
+            msg     = $(this).data('reveal-loading') || 'We\'re just loading the content, hang on in there!',
+            close   = $('<a class="close-reveal-modal">&#215;</a>');
 
         if (image) {
-            modal = $(document.createElement('div')).append($('<img src="' + image + '" />'))
-                                                    .append(close).attr('id', imgModal).appendTo($('body'));
+            modal = $(document.createElement('div')).append($('<img src="' + image + '" />')).append(close).attr('id', imgModal).appendTo($('body'));
         } else if (url && modal.length === 0) {
             url = ($(this).data('reveal-url-id') ? url += ' #' + $(this).data('reveal-url-id') : url);
-            var msg = ($(this).data('reveal-url-loading') ? $(this).data('reveal-url-loading') : 'We\'re just downloading the content, hang on in there!')
             modal = $(document.createElement('div')).append($('<p class="reveal-ajax-loader">' + msg + '</p>'))
-                                                    .load(url, null, function () {
-                                                        $(this).find($('.reveal-ajax-loader')).remove();
-                                                        $(this).append(close); 
-                                                    }).attr('id', ajaxModal).appendTo($('body'));
+                                                    .load(url, null, function () { $('.reveal-ajax-loader').fadeOut(100).remove(); $(this).append(close); })
+                                                    .attr('id', ajaxModal).appendTo($('body'));
         }
 
         modal.addClass('reveal-modal').reveal($(this).data());
@@ -47,13 +44,13 @@
     $.fn.reveal = function (args) {
         if (typeof args === 'object' || !args) {
             return this.each(function () {
-                var modal = $(this),
-                    topMeasure = parseInt(modal.css('top'), 10),
-                    topOffset = modal.height() + topMeasure,
-                    locked = false,
-                    background = $('.reveal-modal-bg'),
-                    timeout = null,
-                    options = $.extend({}, defaults, args);
+                var modal       = $(this),
+                    topMeasure  = parseInt(modal.css('top'), 10),
+                    topOffset   = modal.height() + topMeasure,
+                    locked      = false,
+                    background  = $('.reveal-modal-bg'),
+                    timeout     = null,
+                    options     = $.extend({}, defaults, args);
 
                 function close() {
                     modal.trigger('reveal:close');
